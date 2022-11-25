@@ -5,6 +5,7 @@ class CriteriaResponse<T> {
   final int? total;
   final List<Map>? aggregations;
   final int? limit;
+  final int? page;
 
   CriteriaResponse({
     required this.elements,
@@ -13,5 +14,6 @@ class CriteriaResponse<T> {
     this.total,
     this.aggregations,
     this.limit,
+    this.page,
   });
 }

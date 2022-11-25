@@ -1,4 +1,5 @@
 import 'package:chopper/chopper.dart';
+import 'package:shopware6_client/src/responses/product_criteria_response.dart';
 
 import 'converters/converters.dart';
 import 'models/models.dart';
@@ -27,6 +28,7 @@ class ShopwareClient {
     // Responses
     CategoryCriteriaResponse: CategoryCriteriaResponse.fromJson,
     PaymentMethodCriteriaResponse: PaymentMethodCriteriaResponse.fromJson,
+    ProductCriteriaResponse: ProductCriteriaResponse.fromJson,
 
     // Models
     Category: Category.fromJson,
@@ -53,7 +55,13 @@ class ShopwareClient {
       baseUrl: '${baseUrl.rightStrip('/')}/store-api',
       services: _services,
       converter: const JsonSerializableConverter(_converters),
-      interceptors: _interceptors,
+      interceptors: [
+        ..._interceptors,
+        (Request request) {
+          print(request.body);
+          return request;
+        }
+      ],
     );
   }
 

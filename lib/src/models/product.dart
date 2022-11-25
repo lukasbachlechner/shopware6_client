@@ -36,14 +36,14 @@ class Product implements Model {
   final int? purchaseSteps;
   final int? maxPurchase;
   final int? minPurchase;
-  final int? purchaseUnit;
-  final int? referenceUnit;
+  final double? purchaseUnit;
+  final double? referenceUnit;
   final bool? shippingFree;
   final bool? markAsTopseller;
   final double? weight;
-  final int? width;
-  final int? height;
-  final int? length;
+  final double? width;
+  final double? height;
+  final double? length;
   final DateTime? releaseDate;
   final double? ratingAverage;
   final List<ID>? categoryTree;
@@ -54,6 +54,7 @@ class Product implements Model {
   final int? childCount;
   final int? sales;
   final String? metaDescription;
+  @JsonKey(defaultValue: '')
   final String name;
   final String? keywords;
   final String? description;
@@ -69,8 +70,8 @@ class Product implements Model {
   final DateTime createdAt;
   final DateTime? updatedAt;
 // final translated;
-// final parent;
-// final children;
+  final Product? parent;
+  final Product? children;
   final ProductMedia? cover;
 
   const Product({
@@ -133,6 +134,8 @@ class Product implements Model {
     this.isNew,
     required this.createdAt,
     this.updatedAt,
+    this.parent,
+    this.children,
     this.cover,
   });
 

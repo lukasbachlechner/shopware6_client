@@ -15,6 +15,7 @@ class CategoryCriteriaResponse extends CriteriaResponse<Category> {
     super.total,
     super.aggregations,
     super.limit,
+    super.page,
   });
 
   factory CategoryCriteriaResponse.fromJson(Json json) =>

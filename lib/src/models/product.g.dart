@@ -60,14 +60,14 @@ Product _$ProductFromJson(Map<String, dynamic> json) => Product(
       purchaseSteps: json['purchaseSteps'] as int?,
       maxPurchase: json['maxPurchase'] as int?,
       minPurchase: json['minPurchase'] as int?,
-      purchaseUnit: json['purchaseUnit'] as int?,
-      referenceUnit: json['referenceUnit'] as int?,
+      purchaseUnit: (json['purchaseUnit'] as num?)?.toDouble(),
+      referenceUnit: (json['referenceUnit'] as num?)?.toDouble(),
       shippingFree: json['shippingFree'] as bool?,
       markAsTopseller: json['markAsTopseller'] as bool?,
       weight: (json['weight'] as num?)?.toDouble(),
-      width: json['width'] as int?,
-      height: json['height'] as int?,
-      length: json['length'] as int?,
+      width: (json['width'] as num?)?.toDouble(),
+      height: (json['height'] as num?)?.toDouble(),
+      length: (json['length'] as num?)?.toDouble(),
       releaseDate: json['releaseDate'] == null
           ? null
           : DateTime.parse(json['releaseDate'] as String),
@@ -90,7 +90,7 @@ Product _$ProductFromJson(Map<String, dynamic> json) => Product(
       childCount: json['childCount'] as int?,
       sales: json['sales'] as int?,
       metaDescription: json['metaDescription'] as String?,
-      name: json['name'] as String,
+      name: json['name'] as String? ?? '',
       keywords: json['keywords'] as String?,
       description: json['description'] as String?,
       metaTitle: json['metaTitle'] as String?,
@@ -113,6 +113,12 @@ Product _$ProductFromJson(Map<String, dynamic> json) => Product(
       updatedAt: json['updatedAt'] == null
           ? null
           : DateTime.parse(json['updatedAt'] as String),
+      parent: json['parent'] == null
+          ? null
+          : Product.fromJson(json['parent'] as Map<String, dynamic>),
+      children: json['children'] == null
+          ? null
+          : Product.fromJson(json['children'] as Map<String, dynamic>),
       cover: json['cover'] == null
           ? null
           : ProductMedia.fromJson(json['cover'] as Map<String, dynamic>),
@@ -178,5 +184,7 @@ Map<String, dynamic> _$ProductToJson(Product instance) => <String, dynamic>{
       'isNew': instance.isNew,
       'createdAt': instance.createdAt.toIso8601String(),
       'updatedAt': instance.updatedAt?.toIso8601String(),
+      'parent': instance.parent,
+      'children': instance.children,
       'cover': instance.cover,
     };

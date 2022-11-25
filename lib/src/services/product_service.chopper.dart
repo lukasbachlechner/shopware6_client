@@ -15,4 +15,32 @@ class _$ProductService extends ProductService {
 
   @override
   final definitionType = ProductService;
+
+  @override
+  Future<Response<ProductCriteriaResponse>> getProductsByCategoryId(
+      ID categoryId) {
+    final String $url = '/product-listing/${categoryId}';
+    final Request $request = Request(
+      'POST',
+      $url,
+      client.baseUrl,
+    );
+    return client
+        .send<ProductCriteriaResponse, ProductCriteriaResponse>($request);
+  }
+
+  @override
+  Future<Response<ProductCriteriaResponse>> getProducts(
+      CriteriaInput criteriaInput) {
+    final String $url = '/product';
+    final $body = criteriaInput;
+    final Request $request = Request(
+      'POST',
+      $url,
+      client.baseUrl,
+      body: $body,
+    );
+    return client
+        .send<ProductCriteriaResponse, ProductCriteriaResponse>($request);
+  }
 }

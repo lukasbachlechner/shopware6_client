@@ -20,10 +20,10 @@
 		"prefix": "model",
 		"body": [
 		  "import 'package:json_annotation/json_annotation.dart';",
-		  "import 'package:shopware6_sdk/src/contracts/model.dart';",
 		  "",
+		  "import '../contracts/contracts.dart';",
+		  "import '../models/models.dart';",
 		  "import '../types.dart';",
-		  "import 'id.dart';",
 		  "",
 		  "part '$TM_FILENAME_BASE.g.dart';",
 		  "",

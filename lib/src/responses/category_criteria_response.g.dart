@@ -19,6 +19,7 @@ CategoryCriteriaResponse _$CategoryCriteriaResponseFromJson(
           ?.map((e) => e as Map<String, dynamic>)
           .toList(),
       limit: json['limit'] as int?,
+      page: json['page'] as int?,
     );
 
 Map<String, dynamic> _$CategoryCriteriaResponseToJson(
@@ -30,4 +31,5 @@ Map<String, dynamic> _$CategoryCriteriaResponseToJson(
       'total': instance.total,
       'aggregations': instance.aggregations,
       'limit': instance.limit,
+      'page': instance.page,
     };
