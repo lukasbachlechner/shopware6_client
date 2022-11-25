@@ -1,7 +1,7 @@
 import 'package:chopper/chopper.dart';
-import '../models/id.dart';
 
 import '../models/category.dart';
+import '../models/id.dart';
 import '../responses/category_criteria_response.dart';
 
 part "category_service.chopper.dart";

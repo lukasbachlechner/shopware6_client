@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
-import '../contracts/model.dart';
+
+import '../contracts/contracts.dart';
 import '../types.dart';
 
 part 'calculated_price.g.dart';

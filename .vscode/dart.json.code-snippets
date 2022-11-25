@@ -40,5 +40,28 @@
 		  "}"
 		],
 		"description": "Create a serializable Model"
+	  },
+	  "Create a Chopper service": {
+		"prefix": "service",
+		"body": [
+		  "import 'package:chopper/chopper.dart';",
+		  "",
+		  "part '$TM_FILENAME_BASE.chopper.dart';",
+		  "",
+		  "@ChopperApi()",
+		  "abstract class ${1:${TM_FILENAME_BASE/((^[a-z])|_([a-z]))/${2:/upcase}${3:/upcase}/g}} extends ChopperService {",
+		  "  static $1 create([ChopperClient? client]) =>",
+		  "      _\\$$1(client);",
+		  "}",
+		  ""
+		],
+		"description": "Create a Chopper service"
+	  },
+	  "Add a converter entry to converters": {
+		"prefix": "converter",
+		"body": [
+		  "$1: $1.fromJson,"
+		],
+		"description": "Add a converter entry to converters"
 	  }
 }

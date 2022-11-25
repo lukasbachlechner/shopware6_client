@@ -1,7 +1,8 @@
+import 'package:json_annotation/json_annotation.dart';
+
 import '../models/category.dart';
 import '../types.dart';
 import 'criteria_response.dart';
-import 'package:json_annotation/json_annotation.dart';
 
 part 'category_criteria_response.g.dart';
 

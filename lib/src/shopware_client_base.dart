@@ -1,13 +1,9 @@
 import 'package:chopper/chopper.dart';
-import 'models/media.dart';
-import 'models/payment_method.dart';
-import 'responses/payment_method_criteria_response.dart';
-import 'services/category_service.dart';
-import 'services/payment_method_service.dart';
 
-import 'converters/json_serializable_converter.dart';
-import 'models/category.dart';
-import 'responses/category_criteria_response.dart';
+import 'converters/converters.dart';
+import 'models/models.dart';
+import 'responses/responses.dart';
+import 'services/services.dart';
 
 class ShopwareClient {
   /// The chopper instance.
@@ -24,14 +20,23 @@ class ShopwareClient {
   final List<ChopperService> _services = [
     CategoryService.create(),
     PaymentMethodService.create(),
+    ProductService.create(),
   ];
 
   static const _converters = {
+    // Responses
     CategoryCriteriaResponse: CategoryCriteriaResponse.fromJson,
     PaymentMethodCriteriaResponse: PaymentMethodCriteriaResponse.fromJson,
+
+    // Models
     Category: Category.fromJson,
     PaymentMethod: PaymentMethod.fromJson,
     Media: Media.fromJson,
+    MediaMetadata: MediaMetadata.fromJson,
+    MediaThumbnail: MediaThumbnail.fromJson,
+    Product: Product.fromJson,
+    ProductMedia: ProductMedia.fromJson,
+    CalculatedPrice: CalculatedPrice.fromJson,
   };
 
   final List<dynamic> _interceptors = [];
