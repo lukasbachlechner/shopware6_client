@@ -18,7 +18,7 @@ class _$PaymentMethodService extends PaymentMethodService {
 
   @override
   Future<Response<PaymentMethodCriteriaResponse>> getPaymentMethods() {
-    final String $url = '/payment-method';
+    final Uri $url = Uri.parse('/payment-method');
     final Request $request = Request(
       'POST',
       $url,

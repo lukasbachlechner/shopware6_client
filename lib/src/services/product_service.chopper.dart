@@ -17,9 +17,8 @@ class _$ProductService extends ProductService {
   final definitionType = ProductService;
 
   @override
-  Future<Response<ProductCriteriaResponse>> getProductsByCategoryId(
-      ID categoryId) {
-    final String $url = '/product-listing/${categoryId}';
+  Future<Response<ProductCriteriaResponse>> byCategoryId(ID categoryId) {
+    final Uri $url = Uri.parse('/product-listing/${categoryId}');
     final Request $request = Request(
       'POST',
       $url,
@@ -30,9 +29,9 @@ class _$ProductService extends ProductService {
   }
 
   @override
-  Future<Response<ProductCriteriaResponse>> getProducts(
+  Future<Response<ProductCriteriaResponse>> getAll(
       CriteriaInput criteriaInput) {
-    final String $url = '/product';
+    final Uri $url = Uri.parse('/product');
     final $body = criteriaInput;
     final Request $request = Request(
       'POST',
@@ -42,5 +41,21 @@ class _$ProductService extends ProductService {
     );
     return client
         .send<ProductCriteriaResponse, ProductCriteriaResponse>($request);
+  }
+
+  @override
+  Future<Response<ProductDetailResponse>> get(
+    ID productId, [
+    CriteriaInput? criteriaInput,
+  ]) {
+    final Uri $url = Uri.parse('/product/${productId}');
+    final $body = criteriaInput;
+    final Request $request = Request(
+      'POST',
+      $url,
+      client.baseUrl,
+      body: $body,
+    );
+    return client.send<ProductDetailResponse, ProductDetailResponse>($request);
   }
 }

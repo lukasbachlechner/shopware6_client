@@ -1,5 +1,4 @@
 import 'package:chopper/chopper.dart';
-import 'package:shopware6_client/src/responses/product_criteria_response.dart';
 
 import 'converters/converters.dart';
 import 'models/models.dart';
@@ -22,6 +21,7 @@ class ShopwareClient {
     CategoryService.create(),
     PaymentMethodService.create(),
     ProductService.create(),
+    CartService.create(),
   ];
 
   static const _converters = {
@@ -29,6 +29,7 @@ class ShopwareClient {
     CategoryCriteriaResponse: CategoryCriteriaResponse.fromJson,
     PaymentMethodCriteriaResponse: PaymentMethodCriteriaResponse.fromJson,
     ProductCriteriaResponse: ProductCriteriaResponse.fromJson,
+    ProductDetailResponse: ProductDetailResponse.fromJson,
 
     // Models
     Category: Category.fromJson,
@@ -39,6 +40,13 @@ class ShopwareClient {
     Product: Product.fromJson,
     ProductMedia: ProductMedia.fromJson,
     CalculatedPrice: CalculatedPrice.fromJson,
+    PropertyGroup: PropertyGroup.fromJson,
+    PropertyGroupOption: PropertyGroupOption.fromJson,
+
+    Cart: Cart.fromJson,
+    CartPrice: CartPrice.fromJson,
+    CartError: CartError.fromJson,
+    LineItem: LineItem.fromJson,
   };
 
   final List<dynamic> _interceptors = [];
@@ -47,18 +55,20 @@ class ShopwareClient {
     required this.baseUrl,
     required this.swAccessKey,
   }) {
+    print('[SW6 Client] initializing...');
     addInterceptor(_accessKeyInterceptor);
     addInterceptor(_contextTokenInterceptor);
     addInterceptor(_initialContextTokenInterceptor);
 
     chopper = ChopperClient(
-      baseUrl: '${baseUrl.rightStrip('/')}/store-api',
+      baseUrl: Uri.parse('$baseUrl/store-api'),
       services: _services,
       converter: const JsonSerializableConverter(_converters),
       interceptors: [
         ..._interceptors,
         (Request request) {
-          print(request.body);
+          print('[Request]: ${request.uri}');
+          print('[Request body]: ${request.body}');
           return request;
         }
       ],
@@ -76,6 +86,7 @@ class ShopwareClient {
           contextToken.isNotEmpty &&
           (swContextToken == null || swContextToken!.isEmpty)) {
         setContextToken(contextToken);
+        print(contextToken);
       }
       return response;
     };
@@ -93,7 +104,7 @@ class ShopwareClient {
       if (swContextToken != null) {
         return applyHeader(
           request,
-          'sw-context-key',
+          'sw-context-token',
           swContextToken!,
         );
       }
@@ -107,5 +118,19 @@ class ShopwareClient {
 
   void setContextToken(String token) {
     swContextToken = token;
+  }
+
+  // SERVICES
+
+  ProductService get products {
+    return getService<ProductService>();
+  }
+
+  CategoryService get categories {
+    return getService<CategoryService>();
+  }
+
+  CartService get cart {
+    return getService<CartService>();
   }
 }

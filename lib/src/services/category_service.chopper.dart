@@ -18,7 +18,7 @@ class _$CategoryService extends CategoryService {
 
   @override
   Future<Response<CategoryCriteriaResponse>> getCategories() {
-    final String $url = '/category';
+    final Uri $url = Uri.parse('/category');
     final Request $request = Request(
       'POST',
       $url,
@@ -30,7 +30,7 @@ class _$CategoryService extends CategoryService {
 
   @override
   Future<Response<Category>> getCategory(ID categoryId) {
-    final String $url = '/category/${categoryId}';
+    final Uri $url = Uri.parse('/category/${categoryId}');
     final Request $request = Request(
       'POST',
       $url,
@@ -42,13 +42,17 @@ class _$CategoryService extends CategoryService {
   @override
   Future<Response<List<Category>>> getNavigationMenu(
     NavigationId requestActiveId,
-    NavigationId requestRootId,
-  ) {
-    final String $url = '/navigation/${requestActiveId}/${requestRootId}';
+    NavigationId requestRootId, {
+    NavigationMenuInput input = categoryInput,
+  }) {
+    final Uri $url =
+        Uri.parse('/navigation/${requestActiveId}/${requestRootId}');
+    final $body = input;
     final Request $request = Request(
       'POST',
       $url,
       client.baseUrl,
+      body: $body,
     );
     return client.send<List<Category>, Category>($request);
   }

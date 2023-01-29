@@ -1,9 +1,8 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../types.dart';
-
-import '../contracts/contracts.dart';
-import 'models.dart';
+import '../../contracts/contracts.dart';
+import '../../types.dart';
+import '../models.dart';
 
 part 'product_media.g.dart';
 

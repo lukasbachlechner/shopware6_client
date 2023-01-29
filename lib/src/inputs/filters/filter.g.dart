@@ -12,18 +12,8 @@ Filter _$FilterFromJson(Map<String, dynamic> json) => Filter(
       value: json['value'],
     );
 
-Map<String, dynamic> _$FilterToJson(Filter instance) {
-  final val = <String, dynamic>{
-    'type': instance.type,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('field', instance.field);
-  writeNotNull('value', instance.value);
-  return val;
-}
+Map<String, dynamic> _$FilterToJson(Filter instance) => <String, dynamic>{
+      'type': instance.type,
+      'field': instance.field,
+      'value': instance.value,
+    };

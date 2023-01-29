@@ -1,8 +1,8 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../contracts/contracts.dart';
-import '../types.dart';
-import 'models.dart';
+import '../../contracts/contracts.dart';
+import '../../types.dart';
+import '../models.dart';
 
 part 'product.g.dart';
 
@@ -54,9 +54,14 @@ class Product implements Model {
   final int? childCount;
   final int? sales;
   final String? metaDescription;
-  @JsonKey(defaultValue: '')
+  @JsonKey(
+    readValue: maybeGetTranslatedValue,
+  )
   final String name;
   final String? keywords;
+  @JsonKey(
+    readValue: maybeGetTranslatedValue,
+  )
   final String? description;
   final String? metaTitle;
   final String? packUnit;
@@ -73,6 +78,20 @@ class Product implements Model {
   final Product? parent;
   final Product? children;
   final ProductMedia? cover;
+  final List<ProductMedia>? media;
+
+  static String maybeGetTranslatedValue(
+    Map<dynamic, dynamic> json,
+    String key,
+  ) {
+    if (json[key] != null) {
+      return json[key];
+    } else if (json['translated'] != null && json['translated'][key] != null) {
+      return json['translated'][key];
+    } else {
+      return '';
+    }
+  }
 
   const Product({
     this.id,
@@ -137,10 +156,13 @@ class Product implements Model {
     this.parent,
     this.children,
     this.cover,
+    this.media,
   });
 
   factory Product.fromJson(Json json) => _$ProductFromJson(json);
 
   @override
   Json toJson() => _$ProductToJson(this);
+
+  bool get isMainProduct => parentId == null;
 }

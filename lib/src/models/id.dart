@@ -1,4 +1,6 @@
-class ID {
+import 'package:equatable/equatable.dart';
+
+class ID extends Equatable {
   final String value;
 
   static const String validatorRegEx = r'^[0-9a-f]{32}$';
@@ -19,4 +21,7 @@ class ID {
 
   @override
   String toString() => value;
+
+  @override
+  List<String> get props => [value];
 }

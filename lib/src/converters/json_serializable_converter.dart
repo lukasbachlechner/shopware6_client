@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:chopper/chopper.dart';
 
@@ -16,7 +15,7 @@ class JsonSerializableConverter extends JsonConverter {
     final jsonFactory = factories[T];
     if (jsonFactory == null || jsonFactory is! JsonFactory<T>) {
       /// throw serializer not found error;
-      return null;
+      throw Exception('Converter not found. Did you forget to register it?');
     }
 
     return jsonFactory(values);

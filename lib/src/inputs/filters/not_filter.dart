@@ -1,7 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:shopware6_client/src/types.dart';
 
-import 'filter_operator.dart';
 import 'filters.dart';
 
 part 'not_filter.g.dart';

@@ -6,4 +6,6 @@ export 'filter_operator.dart';
 export 'filters.dart';
 export 'multi_filter.dart';
 export 'not_filter.dart';
+export 'prefix_filter.dart';
 export 'range_filter.dart';
+export 'suffix_filter.dart';

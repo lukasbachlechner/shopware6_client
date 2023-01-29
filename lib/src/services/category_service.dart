@@ -1,4 +1,5 @@
 import 'package:chopper/chopper.dart';
+import 'package:shopware6_client/src/inputs/navigation_menu_input.dart';
 
 import '../models/category.dart';
 import '../models/id.dart';
@@ -19,6 +20,8 @@ class NavigationId {
   String toString() => value;
 }
 
+const categoryInput = NavigationMenuInput(buildTree: false, depth: 1);
+
 @ChopperApi()
 abstract class CategoryService extends ChopperService {
   static CategoryService create([ChopperClient? client]) =>
@@ -38,6 +41,7 @@ abstract class CategoryService extends ChopperService {
   )
   Future<Response<List<Category>>> getNavigationMenu(
     @Path('requestActiveId') NavigationId requestActiveId,
-    @Path('requestRootId') NavigationId requestRootId,
-  );
+    @Path('requestRootId') NavigationId requestRootId, {
+    @Body() NavigationMenuInput input = categoryInput,
+  });
 }

@@ -4,7 +4,7 @@ import '../../types.dart';
 
 part 'filter.g.dart';
 
-@JsonSerializable(includeIfNull: false)
+@JsonSerializable(includeIfNull: true)
 class Filter {
   final String type;
   final String? field;
