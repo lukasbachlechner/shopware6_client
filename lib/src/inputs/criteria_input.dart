@@ -21,7 +21,7 @@ class CriteriaInput extends Equatable implements Model {
   final int totalCountMode;
   final Map<String, dynamic>? associations;
 
-  CriteriaInput({
+  const CriteriaInput({
     this.page,
     this.limit,
     this.filter,

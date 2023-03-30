@@ -9,6 +9,7 @@ export './src/contracts/contracts.dart';
 export './src/converters/converters.dart';
 export './src/models/models.dart';
 export './src/responses/responses.dart';
+export './src/requests/requests.dart';
 export './src/services/services.dart';
 export './src/inputs/inputs.dart';
 export './src/types.dart';

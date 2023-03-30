@@ -13,9 +13,7 @@ PaymentMethodCriteriaResponse _$PaymentMethodCriteriaResponseFromJson(
           .map((e) => PaymentMethod.fromJson(e as Map<String, dynamic>))
           .toList(),
       total: json['total'] as int?,
-      aggregations: (json['aggregations'] as List<dynamic>?)
-          ?.map((e) => e as Map<String, dynamic>)
-          .toList(),
+      aggregations: json['aggregations'],
     );
 
 Map<String, dynamic> _$PaymentMethodCriteriaResponseToJson(

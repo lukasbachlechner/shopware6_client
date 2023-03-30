@@ -21,7 +21,16 @@ class PropertyGroup implements Model {
   final DateTime createdAt;
   final DateTime? updatedAt;
   final Json? translated;
+
   final List<PropertyGroupOption>? options;
+
+  List<PropertyGroupOption> get sortedOptions {
+    final optionsToUse = options ?? [];
+    optionsToUse.sort(
+      (a, b) => (a.position ?? 1).compareTo(b.position ?? 1),
+    );
+    return optionsToUse;
+  }
 
   PropertyGroup({
     required this.id,

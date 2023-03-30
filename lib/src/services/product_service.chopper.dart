@@ -17,18 +17,6 @@ class _$ProductService extends ProductService {
   final definitionType = ProductService;
 
   @override
-  Future<Response<ProductCriteriaResponse>> byCategoryId(ID categoryId) {
-    final Uri $url = Uri.parse('/product-listing/${categoryId}');
-    final Request $request = Request(
-      'POST',
-      $url,
-      client.baseUrl,
-    );
-    return client
-        .send<ProductCriteriaResponse, ProductCriteriaResponse>($request);
-  }
-
-  @override
   Future<Response<ProductCriteriaResponse>> getAll(
       CriteriaInput criteriaInput) {
     final Uri $url = Uri.parse('/product');
@@ -57,5 +45,56 @@ class _$ProductService extends ProductService {
       body: $body,
     );
     return client.send<ProductDetailResponse, ProductDetailResponse>($request);
+  }
+
+  @override
+  Future<Response<ProductCriteriaResponse>> byCategoryId(
+    ID categoryId,
+    ProductListingCriteriaInput criteriaInput,
+  ) {
+    final Uri $url = Uri.parse('/product-listing/${categoryId}');
+    final $body = criteriaInput;
+    final Request $request = Request(
+      'POST',
+      $url,
+      client.baseUrl,
+      body: $body,
+    );
+    return client
+        .send<ProductCriteriaResponse, ProductCriteriaResponse>($request);
+  }
+
+  @override
+  Future<Response<ProductCriteriaResponse>> searchSuggest(
+      ProductSearchSuggestInput suggestInput) {
+    final Uri $url = Uri.parse('/search-suggest');
+    final $body = suggestInput;
+    final Request $request = Request(
+      'POST',
+      $url,
+      client.baseUrl,
+      body: $body,
+    );
+    return client
+        .send<ProductCriteriaResponse, ProductCriteriaResponse>($request);
+  }
+
+  @override
+  Future<Response<ProductCriteriaResponse>> search(
+    String search,
+    ProductListingCriteriaInput criteriaInput,
+  ) {
+    final Uri $url = Uri.parse('/search');
+    final Map<String, dynamic> $params = <String, dynamic>{'search': search};
+    final $body = criteriaInput;
+    final Request $request = Request(
+      'POST',
+      $url,
+      client.baseUrl,
+      body: $body,
+      parameters: $params,
+    );
+    return client
+        .send<ProductCriteriaResponse, ProductCriteriaResponse>($request);
   }
 }

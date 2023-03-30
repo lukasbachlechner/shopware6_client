@@ -1,4 +1,4 @@
-import '../models/payment_method.dart';
+import '../models/models.dart';
 import '../types.dart';
 import 'criteria_response.dart';
 import 'package:json_annotation/json_annotation.dart';

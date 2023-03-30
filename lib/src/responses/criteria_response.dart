@@ -3,7 +3,7 @@ class CriteriaResponse<T> {
   final String? apiAlias;
   final String? entity;
   final int? total;
-  final List<Map>? aggregations;
+  final dynamic aggregations;
   final int? limit;
   final int? page;
 

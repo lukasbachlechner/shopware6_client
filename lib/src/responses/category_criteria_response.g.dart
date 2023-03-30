@@ -15,9 +15,7 @@ CategoryCriteriaResponse _$CategoryCriteriaResponseFromJson(
       apiAlias: json['apiAlias'] as String?,
       entity: json['entity'] as String?,
       total: json['total'] as int?,
-      aggregations: (json['aggregations'] as List<dynamic>?)
-          ?.map((e) => e as Map<String, dynamic>)
-          .toList(),
+      aggregations: json['aggregations'],
       limit: json['limit'] as int?,
       page: json['page'] as int?,
     );

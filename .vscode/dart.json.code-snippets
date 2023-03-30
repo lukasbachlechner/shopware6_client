@@ -15,53 +15,60 @@
 	// 	],
 	// 	"description": "Log output to console"
 	// }
-
 	"Create a serializable Model": {
 		"prefix": "model",
 		"body": [
-		  "import 'package:json_annotation/json_annotation.dart';",
-		  "",
-		  "import '../contracts/contracts.dart';",
-		  "import '../models/models.dart';",
-		  "import '../types.dart';",
-		  "",
-		  "part '$TM_FILENAME_BASE.g.dart';",
-		  "",
-		  "@JsonSerializable()",
-		  "class ${1:${TM_FILENAME_BASE/((^[a-z])|_([a-z]))/${2:/upcase}${3:/upcase}/g}} implements Model {",
-		  "  final ID? id;",
-		  "",
-		  "  $1({ this.id });",
-		  "",
-		  "  factory $1.fromJson(Json json) => _\\$$1FromJson(json);",
-		  "",
-		  "  @override ",
-		  "  Json toJson() => _\\$$1ToJson(this);",
-		  "}"
+			"import 'package:json_annotation/json_annotation.dart';",
+			"",
+			"import '../contracts/contracts.dart';",
+			"import '../models/models.dart';",
+			"import '../types.dart';",
+			"",
+			"part '$TM_FILENAME_BASE.g.dart';",
+			"",
+			"@JsonSerializable()",
+			"class ${1:${TM_FILENAME_BASE/((^[a-z])|_([a-z]))/${2:/upcase}${3:/upcase}/g}} implements Model {",
+			"  final ID? id;",
+			"",
+			"  $1({ this.id });",
+			"",
+			"  factory $1.fromJson(Json json) => _\\$$1FromJson(json);",
+			"",
+			"  @override ",
+			"  Json toJson() => _\\$$1ToJson(this);",
+			"}"
 		],
 		"description": "Create a serializable Model"
-	  },
-	  "Create a Chopper service": {
+	},
+	"Create a Chopper service": {
 		"prefix": "service",
 		"body": [
-		  "import 'package:chopper/chopper.dart';",
-		  "",
-		  "part '$TM_FILENAME_BASE.chopper.dart';",
-		  "",
-		  "@ChopperApi()",
-		  "abstract class ${1:${TM_FILENAME_BASE/((^[a-z])|_([a-z]))/${2:/upcase}${3:/upcase}/g}} extends ChopperService {",
-		  "  static $1 create([ChopperClient? client]) =>",
-		  "      _\\$$1(client);",
-		  "}",
-		  ""
+			"import 'package:chopper/chopper.dart';",
+			"",
+			"part '$TM_FILENAME_BASE.chopper.dart';",
+			"",
+			"@ChopperApi()",
+			"abstract class ${1:${TM_FILENAME_BASE/((^[a-z])|_([a-z]))/${2:/upcase}${3:/upcase}/g}} extends ChopperService {",
+			"  static $1 create([ChopperClient? client]) =>",
+			"      _\\$$1(client);",
+			"}",
+			""
 		],
 		"description": "Create a Chopper service"
-	  },
-	  "Add a converter entry to converters": {
-		"prefix": "converter",
+	},
+	"Add a converter entry to converters": {
+		"prefix": "con",
 		"body": [
-		  "$1: $1.fromJson,"
+			"$1: $1.fromJson,"
 		],
 		"description": "Add a converter entry to converters"
-	  }
+	},
+	"Add timestamp fields": {
+		"prefix": "timestamp",
+		"body": [
+			"final DateTime createdAt;",
+			"final DateTime? updatedAt;"
+		],
+		"description": "Add timestamp fields to a class"
+	}
 }
