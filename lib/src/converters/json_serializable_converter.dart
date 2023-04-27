@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:chopper/chopper.dart';
+import 'package:shopware6_client/src/responses/error/shopware_error_response.dart';
 
 import '../types.dart';
 
@@ -10,6 +11,10 @@ class JsonSerializableConverter extends JsonConverter {
   const JsonSerializableConverter(this.factories);
 
   T? _decodeMap<T>(Json values) {
+    if (values.isEmpty) {
+      return null;
+    }
+
     /// Get jsonFactory using Type parameters
     /// if not found or invalid, throw error or return null
     final jsonFactory = factories[T];
@@ -52,8 +57,8 @@ class JsonSerializableConverter extends JsonConverter {
     // use [JsonConverter] to decode json
     final jsonRes = await super.convertError(response);
 
-    return jsonRes.copyWith(
-      body: jsonRes.body,
+    return jsonRes.copyWith<ShopwareErrorResponse>(
+      body: ShopwareErrorResponse.fromJson(jsonRes.body),
     );
   }
 }

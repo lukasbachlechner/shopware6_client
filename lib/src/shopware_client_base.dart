@@ -1,11 +1,10 @@
 import 'dart:convert';
 
 import 'package:chopper/chopper.dart';
+import 'package:logging/logging.dart';
 /* import 'package:logging/logging.dart'; */
 import 'package:shopware6_client/src/models/context/cash_rounding.dart';
 import 'package:shopware6_client/src/models/context/tax_free_config.dart';
-import 'package:shopware6_client/src/services/auth_service.dart';
-import 'package:shopware6_client/src/services/system_service.dart';
 
 import 'converters/converters.dart';
 import 'models/models.dart';
@@ -30,14 +29,18 @@ class ShopwareClientConfig {
   final bool logging;
 
   final bool logRequestBody;
+  final bool logRequestHeaders;
   final bool logResponseBody;
+  final bool logResponseHeaders;
 
   const ShopwareClientConfig({
     required this.baseUrl,
     required this.swAccessKey,
     this.logging = false,
     this.logRequestBody = false,
+    this.logRequestHeaders = false,
     this.logResponseBody = false,
+    this.logResponseHeaders = false,
   });
 }
 
@@ -58,6 +61,7 @@ class ShopwareClient {
     ContextService.create(),
     AuthService.create(),
     SystemService.create(),
+    CheckoutService.create(),
   ];
 
   static const _converters = {
@@ -66,6 +70,13 @@ class ShopwareClient {
     PaymentMethodCriteriaResponse: PaymentMethodCriteriaResponse.fromJson,
     ProductCriteriaResponse: ProductCriteriaResponse.fromJson,
     ProductDetailResponse: ProductDetailResponse.fromJson,
+    CountryCriteriaResponse: CountryCriteriaResponse.fromJson,
+    LanguageCriteriaResponse: LanguageCriteriaResponse.fromJson,
+    CurrencyCriteriaResponse: CurrencyCriteriaResponse.fromJson,
+    SalutationCriteriaResponse: SalutationCriteriaResponse.fromJson,
+    ContextPatchResponse: ContextPatchResponse.fromJson,
+    ContextTokenResponse: ContextTokenResponse.fromJson,
+    ShippingMethodCriteriaResponse: ShippingMethodCriteriaResponse.fromJson,
 
     // Models
     Category: Category.fromJson,
@@ -78,7 +89,6 @@ class ShopwareClient {
     PropertyGroup: PropertyGroup.fromJson,
     PropertyGroupOption: PropertyGroupOption.fromJson,
     ProductSorting: ProductSorting.fromJson,
-
     Cart: Cart.fromJson,
     CartPrice: CartPrice.fromJson,
     CartError: CartError.fromJson,
@@ -97,6 +107,17 @@ class ShopwareClient {
     TaxFreeConfig: TaxFreeConfig.fromJson,
     Tax: Tax.fromJson,
     Language: Language.fromJson,
+    Address: Address.fromJson,
+    Salutation: Salutation.fromJson,
+    Customer: Customer.fromJson,
+    ShippingMethodPrice: ShippingMethodPrice.fromJson,
+    Price: Price.fromJson,
+    Order: Order.fromJson,
+    OrderCustomer: OrderCustomer.fromJson,
+
+    // Errors
+    ShopwareError: ShopwareError.fromJson,
+    ShopwareErrorResponse: ShopwareErrorResponse.fromJson,
   };
 
   final List<dynamic> _interceptors = [];
@@ -104,12 +125,12 @@ class ShopwareClient {
   ShopwareClient({
     required this.config,
   }) {
-    /* Logger.root.level = Level.ALL; // defaults to Level.INFO
+    // Logger.root.level = Level.ALL; // defaults to Level.INFO
     Logger.root.onRecord.listen((record) {
       if (record.loggerName == 'Chopper' && config.logging) {
         print(record.message);
       }
-    }); */
+    });
 
     addInterceptor(_accessKeyInterceptor);
     addInterceptor(_contextTokenInterceptor);
@@ -119,7 +140,7 @@ class ShopwareClient {
       baseUrl: Uri.parse('${config.baseUrl}/store-api'),
       services: _services,
       converter: const JsonSerializableConverter(_converters),
-      errorConverter: const JsonConverter(),
+      errorConverter: const JsonSerializableConverter(_converters),
       interceptors: [
         ..._interceptors,
         (Request request) {
@@ -143,6 +164,10 @@ class ShopwareClient {
             '${response.statusCode == 200 ? '✅' : '⛔️ ${response.statusCode}'} [$method] $requestUri',
             if (!response.isSuccessful) 'Error: ${response.error}'
           ];
+          if (config.logResponseHeaders) {
+            lines.add(response.headers['sw-context-token'].toString());
+          }
+
           if (config.logResponseBody) {
             lines.add(prettyJson(response.bodyString));
           }
@@ -225,5 +250,13 @@ class ShopwareClient {
 
   SystemService get system {
     return getService<SystemService>();
+  }
+
+  PaymentMethodService get paymentMethod {
+    return getService<PaymentMethodService>();
+  }
+
+  CheckoutService get checkout {
+    return getService<CheckoutService>();
   }
 }

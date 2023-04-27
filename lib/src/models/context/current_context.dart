@@ -1,10 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:shopware6_client/src/models/context/core_context.dart';
-import 'package:shopware6_client/src/models/context/currency.dart';
-import 'package:shopware6_client/src/models/context/customer_group.dart';
-import 'package:shopware6_client/src/models/context/sales_channel.dart';
-import 'package:shopware6_client/src/models/context/shipping_location.dart';
-import 'package:shopware6_client/src/models/context/tax.dart';
 
 import '../../contracts/contracts.dart';
 import '../../models/models.dart';
@@ -23,6 +17,7 @@ class CurrentContext implements Model {
   final Currency currency;
   final SalesChannel salesChannel;
   final List<Tax> taxRules;
+  final Customer? customer;
 
   final PaymentMethod paymentMethod;
   final ShippingMethod shippingMethod;
@@ -41,6 +36,7 @@ class CurrentContext implements Model {
     required this.currency,
     required this.salesChannel,
     required this.taxRules,
+    this.customer,
     required this.paymentMethod,
     required this.shippingMethod,
     required this.shippingLocation,

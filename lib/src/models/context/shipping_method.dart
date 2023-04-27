@@ -3,7 +3,6 @@ import 'package:json_annotation/json_annotation.dart';
 import '../../contracts/contracts.dart';
 import '../../models/models.dart';
 import '../../types.dart';
-import 'delivery_time.dart';
 
 part 'shipping_method.g.dart';
 
@@ -18,6 +17,7 @@ class ShippingMethod implements Model {
   final ID deliveryTimeId;
   final DeliveryTime deliveryTime;
   final String taxType;
+  final List<ShippingMethodPrice>? prices;
 
   final DateTime createdAt;
   final DateTime? updatedAt;
@@ -32,6 +32,7 @@ class ShippingMethod implements Model {
     required this.deliveryTimeId,
     required this.deliveryTime,
     required this.taxType,
+    this.prices,
     required this.createdAt,
     this.updatedAt,
   });

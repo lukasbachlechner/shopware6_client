@@ -8,10 +8,12 @@ part 'language.g.dart';
 
 @JsonSerializable()
 class Language implements Model {
+  final ID id;
   final ID localeId;
   final String name;
 
   Language({
+    required this.id,
     required this.localeId,
     required this.name,
   });

@@ -9,17 +9,28 @@ abstract class SystemService extends ChopperService {
       _$SystemService(client);
 
   @Post(path: '/currency', optionalBody: true)
-  Future<Response<CriteriaResponse<Currency>>> fetchCurrencies(
+  Future<Response<List<Currency>>> fetchCurrencies(
     @Body() CriteriaInput? criteriaInput,
   );
 
   @Post(path: '/language', optionalBody: true)
-  Future<Response<CriteriaResponse<Language>>> fetchLanguages(
+  Future<Response<LanguageCriteriaResponse>> fetchLanguages(
     @Body() CriteriaInput? criteriaInput,
   );
 
   @Post(path: '/country', optionalBody: true)
-  Future<Response<CriteriaResponse<Country>>> fetchCountries(
+  Future<Response<CountryCriteriaResponse>> fetchCountries(
     @Body() CriteriaInput? criteriaInput,
   );
+
+  @Post(path: '/salutation', optionalBody: true)
+  Future<Response<SalutationCriteriaResponse>> fetchSalutations(
+    @Body() CriteriaInput? criteriaInput,
+  );
+
+  @Post(path: '/shipping-method', optionalBody: true)
+  Future<Response<ShippingMethodCriteriaResponse>> fetchShippingMethods(
+    @Body() CriteriaInput? criteriaInput, {
+    @Query('onlyAvailable') bool onlyAvailable = true,
+  });
 }
