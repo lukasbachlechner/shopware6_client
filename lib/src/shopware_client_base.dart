@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:chopper/chopper.dart';
+import 'package:http/http.dart' as http;
 import 'package:logging/logging.dart';
 /* import 'package:logging/logging.dart'; */
 import 'package:shopware6_client/src/models/context/cash_rounding.dart';
@@ -50,6 +51,8 @@ class ShopwareClient {
 
   /// The ShopwareClient config.
   final ShopwareClientConfig config;
+
+  final http.Client? client;
 
   String? swContextToken;
 
@@ -124,6 +127,7 @@ class ShopwareClient {
 
   ShopwareClient({
     required this.config,
+    this.client,
   }) {
     // Logger.root.level = Level.ALL; // defaults to Level.INFO
     Logger.root.onRecord.listen((record) {
@@ -137,6 +141,7 @@ class ShopwareClient {
     addInterceptor(_initialContextTokenInterceptor);
 
     chopper = ChopperClient(
+      client: client,
       baseUrl: Uri.parse('${config.baseUrl}/store-api'),
       services: _services,
       converter: const JsonSerializableConverter(_converters),
